@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salin Beberapa Teks</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        button {
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            border: none;
+            cursor: pointer;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <button onclick="copyMultipleText()"></button>
+
+    <script>
+        function decodeBase64Twice(encodedText) {
+            // Decode Base64 dua kali
+            let onceDecoded = atob(encodedText); // Decode pertama
+            return decodeURIComponent(atob(onceDecoded).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join('')); // Decode kedua
+        }
+
+        function copyMultipleText() {
+            // Teks yang di-encode dua kali dengan Base64
+            const encodedTexts = [
+                "U0dGc2J3PT0=", // Encode dari "SGFsbw==" -> "Halo"
+                "VlRWemRBPT0="  // Encode dari "VGVzdA==" -> "Test"
+            ];
+
+            encodedTexts.forEach((encodedText, index) => {
+                setTimeout(() => {
+                    const text = decodeBase64Twice(encodedText); // Decode dua kali sebelum disalin
+                    navigator.clipboard.writeText(text).then(() => {
+                        console.log(`Teks "${text}" berhasil disalin.`);
+                    }).catch(err => {
+                        console.error(`Gagal menyalin teks "${text}": `, err);
+                    });
+                }, index * 14); // Jeda 500ms antar penyalinan
+            });
+        }
+    </script>
+
+</body>
+</html>
