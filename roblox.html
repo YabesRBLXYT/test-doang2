@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salin Teks dan Buka Roblox</title>
+    <title>Salin dan Buka Roblox</title>
     <style>
         body, html {
             margin: 0;
@@ -23,40 +23,25 @@
 </head>
 <body>
 
-    <button onclick="copyTextAndOpenRoblox()"></button>
+    <button onclick="copyAndOpenApp()"></button>
 
     <script>
-        function decodeBase64Twice(encodedText) {
-            // Decode Base64 dua kali
-            let onceDecoded = atob(encodedText); // Decode pertama
-            return decodeURIComponent(atob(onceDecoded).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join('')); // Decode kedua
-        }
-
-        function copyTextAndOpenRoblox() {
-            // Teks yang di-encode dua kali dengan Base64
-            const encodedTexts = [
-                "U0VVek1qRklSVEV5TXc9PQ==", // Encode dari "SGFsbw==" -> "Halo"
-                "YTI5cklHSnBjMkU9  // Encode dari "VGVzdA==" -> "Test"
-            ];
-
-            // Menyalin teks satu per satu
-            encodedTexts.forEach((encodedText, index) => {
+        function copyAndOpenApp() {
+            const texts = ["kok bisa", "HE321HE123"]; // Teks yang akan disalin satu per satu
+            texts.forEach((text, index) => {
                 setTimeout(() => {
-                    const text = decodeBase64Twice(encodedText); // Decode dua kali sebelum disalin
                     navigator.clipboard.writeText(text).then(() => {
                         console.log(`Teks "${text}" berhasil disalin.`);
                     }).catch(err => {
                         console.error(`Gagal menyalin teks "${text}": `, err);
                     });
-                }, index * 500); // Jeda 500ms antar penyalinan
+                }, index * 14); // Jeda 500ms antar penyalinan
             });
 
-            // Buka aplikasi Roblox setelah penyalinan teks
+            // Setelah teks disalin, buka aplikasi APKPure
             setTimeout(() => {
-                window.location.href = "roblox://"; // Membuka aplikasi Roblox
-            }, encodedTexts.length * 500); // Setelah semua teks disalin
+                window.location.href = "roblox://"; // URL Scheme APKPure
+            }, texts.length * 500); // Buka aplikasi setelah selesai menyalin semua teks
         }
     </script>
 
