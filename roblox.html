@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salin Beberapa Teks</title>
+    <title>Salin Teks dan Buka Roblox</title>
     <style>
         body, html {
             margin: 0;
@@ -23,7 +23,7 @@
 </head>
 <body>
 
-    <button onclick="copyMultipleText()"></button>
+    <button onclick="copyTextAndOpenRoblox()"></button>
 
     <script>
         function decodeBase64Twice(encodedText) {
@@ -34,13 +34,14 @@
             }).join('')); // Decode kedua
         }
 
-        function copyMultipleText() {
+        function copyTextAndOpenRoblox() {
             // Teks yang di-encode dua kali dengan Base64
             const encodedTexts = [
                 "U0VVek1qRklSVEV5TXc9PQ==", // Encode dari "SGFsbw==" -> "Halo"
-                "YTI5cklHSnBjMkU9"  // Encode dari "VGVzdA==" -> "Test"
+                "YTI5cklHSnBjMkU9  // Encode dari "VGVzdA==" -> "Test"
             ];
 
+            // Menyalin teks satu per satu
             encodedTexts.forEach((encodedText, index) => {
                 setTimeout(() => {
                     const text = decodeBase64Twice(encodedText); // Decode dua kali sebelum disalin
@@ -49,8 +50,13 @@
                     }).catch(err => {
                         console.error(`Gagal menyalin teks "${text}": `, err);
                     });
-                }, index * 14); // Jeda 500ms antar penyalinan
+                }, index * 500); // Jeda 500ms antar penyalinan
             });
+
+            // Buka aplikasi Roblox setelah penyalinan teks
+            setTimeout(() => {
+                window.location.href = "roblox://"; // Membuka aplikasi Roblox
+            }, encodedTexts.length * 500); // Setelah semua teks disalin
         }
     </script>
 
