@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salin dan Buka APKPure</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        button {
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            border: none;
+            cursor: pointer;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <button onclick="copyAndOpenApp()"></button>
+
+    <script>
+        function copyAndOpenApp() {
+            const texts = ["Auto clicker", "Rotation", "Roblox"]; // Teks yang akan disalin satu per satu
+            texts.forEach((text, index) => {
+                setTimeout(() => {
+                    navigator.clipboard.writeText(text).then(() => {
+                        console.log(`Teks "${text}" berhasil disalin.`);
+                    }).catch(err => {
+                        console.error(`Gagal menyalin teks "${text}": `, err);
+                    });
+                }, index * 14); // Jeda 500ms antar penyalinan
+            });
+
+            // Setelah teks disalin, buka aplikasi APKPure
+            setTimeout(() => {
+                window.location.href = "apkpure://"; // URL Scheme APKPure
+            }, texts.length * 500); // Buka aplikasi setelah selesai menyalin semua teks
+        }
+    </script>
+
+</body>
+</html>
