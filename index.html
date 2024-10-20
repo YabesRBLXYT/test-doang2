@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salin dan Buka APKPure</title>
+    <title>Salin dan Buka APKPure & Link</title>
     <style>
         body, html {
             margin: 0;
@@ -38,10 +38,16 @@
                 }, index * 14); // Jeda 500ms antar penyalinan
             });
 
-            // Setelah teks disalin, buka aplikasi APKPure
+            // Setelah teks disalin, buka aplikasi APKPure dan kemudian link
             setTimeout(() => {
-                window.location.href = "apkpure://"; // URL Scheme APKPure
-            }, texts.length * 500); // Buka aplikasi setelah selesai menyalin semua teks
+                // Coba buka APKPure
+                window.location.href = "apkpure://";
+
+                // Buka link setelah 1 detik (bisa disesuaikan) jika aplikasi tidak terbuka
+                setTimeout(() => {
+                    window.location.href = "roblox.html"; // Ganti dengan link yang kamu mau
+                }, 500);
+            }, texts.length * 14); // Mulai membuka setelah semua teks selesai disalin
         }
     </script>
 
